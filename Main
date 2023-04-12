@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите числа через запятую:");
+        String a = scanner.next();
+        String[] values = a.split(",");
+        MaxRunnable mr = new MaxRunnable(values);
+        MinRunnable mir = new MinRunnable(values);
+
+        Thread maxThread = new Thread(mr);
+        Thread minThread = new Thread(mir);
+
+        maxThread.start();
+        minThread.start();
+
+        try {
+            maxThread.join();
+            minThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Максимальное значение: " + mr.getResult());
+        System.out.println("Минимальное значение: " + mir.getResult());
+
+    }
+
+
+}
