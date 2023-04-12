@@ -1,0 +1,22 @@
+import java.util.Arrays;
+public class MinRunnable implements Runnable {
+    private String[] values;
+    private int result;
+
+    public MinRunnable(String[] values) {
+        this.values = values;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    @Override
+    public void run() {
+        result = Arrays.stream(values)
+                .mapToInt(Integer::parseInt)
+                .min()
+                .getAsInt();
+    }
+
+}
